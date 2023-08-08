@@ -12,7 +12,7 @@ fn main() {
         match input.trim().to_lowercase().as_str() {
             "add" => add(&mut list),
             "remove" => delete(&mut list),
-            "list" => printItems(&list),
+            "list" => print_items(&list),
             _ => println!("Do nothing"),
         };
     }
@@ -32,16 +32,17 @@ fn add(list: &mut Vec<String>) {
 
 fn delete(list: &mut Vec<String>) {
     let mut item = String::new();
+    print_items(list);
     println!("Type an item to delete");
     std::io::stdin()
         .read_line(&mut item)
         .expect("Failed to read line");
-
+    let i: i32 = item.trim().parse().expect("Input not an integer");
     print!("{}[2J", 27 as char);
-    list.retain(|x| *x != item);
+    list.remove((i - 1) as usize);
 }
 
-fn printItems(list: &Vec<String>) {
+fn print_items(list: &Vec<String>) {
     print!("{}[2J", 27 as char);
     println!("Your To-Do List");
     let mut index = 1;
