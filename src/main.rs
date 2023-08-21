@@ -1,21 +1,28 @@
+use to_do_list::{Item, List};
 fn main() {
-    let mut list: Vec<String> = vec![];
-    loop {
-        println!("What would you like to do? \n1. Add \n2. Remove \n3. List");
+    let a = Item::new(String::from("Apple"), false);
+    let b = Item::new(String::from("Banana"), false);
+    let mut l = List::new();
+    l.add(a);
+    l.add(b);
+    l.printlist();
+    // let mut list: Vec<String> = vec![];
+    // loop {
+    //     println!("What would you like to do? \n1. Add \n2. Remove \n3. List");
 
-        let mut input = String::new();
+    //     let mut input = String::new();
 
-        std::io::stdin()
-            .read_line(&mut input)
-            .expect("Failed to read line");
+    //     std::io::stdin()
+    //         .read_line(&mut input)
+    //         .expect("Failed to read line");
 
-        match input.trim().to_lowercase().as_str() {
-            "add" => add(&mut list),
-            "remove" => delete(&mut list),
-            "list" => print_items(&list),
-            _ => println!("Do nothing"),
-        };
-    }
+    //     match input.trim().to_lowercase().as_str() {
+    //         "add" => add(&mut list),
+    //         "remove" => delete(&mut list),
+    //         "list" => print_items(&list),
+    //         _ => println!("Do nothing"),
+    //     };
+    // }
 }
 
 fn add(list: &mut Vec<String>) {
@@ -33,11 +40,13 @@ fn add(list: &mut Vec<String>) {
 fn delete(list: &mut Vec<String>) {
     let mut item = String::new();
     print_items(list);
-    println!("Type an item to delete");
+    println!("Type the number of the item you want to delete");
     std::io::stdin()
         .read_line(&mut item)
         .expect("Failed to read line");
-    let i: i32 = item.trim().parse().expect("Input not an integer");
+    let i: i32 = item.trim()
+        .parse()
+        .expect("Input not an integer");
     print!("{}[2J", 27 as char);
     list.remove((i - 1) as usize);
 }
